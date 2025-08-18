@@ -8,6 +8,17 @@ let todayMonthFormatted = (todayMonth + 1).toString().padStart(2, '0');
 let todayYear = today.getFullYear();
 let todayDateFormatted = todayDayFormatted + '.' + todayMonthFormatted + '.' + todayYear;
 
+// daynamic
+
+let renderDay = today.getDate();
+let renderDayFormatted = todayDay.toString().padStart(2, '0');
+
+let renderMonth = today.getMonth();
+let renderMonthFormatted = todayDayFormatted + '.' + todayMonthFormatted + '.' + todayYear;
+
+let renderYear = today.getFullYear();
+let renderDateFormatted = todayDayFormatted + '.' + todayMonthFormatted + '.' + todayYear;
+
 document.getElementById("fullDate1").textContent = todayDateFormatted;
 document.getElementById("fullDate2").textContent = todayDateFormatted;
 document.getElementById("fullDate3").textContent = todayDateFormatted;
@@ -38,6 +49,26 @@ if (feiertagsName) {
     document.getElementById("holiday").textContent = "Heute ist kein gesetzlicher Feiertag in Hessen.";
 }
 
+
+// HELPER FUNCTIONS for dynamic//
+
+
+function updateCalender (todayYear, todayMonthFormatted) {
+    let firstDay = new Date(renderYear, renderMonth);
+    let lastDay = new Date(renderYear, renderMonth);
+    let todayDateFormatted;
+    let todayMonthFormatted;
+
+
+
+
+
+    
+
+}
+
+
+
 document.getElementById("prev").addEventListener("click", () => {
     todayMonth--;
     if (todayMonth < 0) {
@@ -56,7 +87,6 @@ document.getElementById("next").addEventListener("click", () => {
     renderCalenderStart2(todayYear, todayMonth);
 });
 
-// HELPER FUNCTIONS //
 
 function getWeekdayGerman(index) {
     const weekdayNames = ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'];
