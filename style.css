@@ -1,0 +1,169 @@
+
+body {
+  font-family: Arial, sans-serif;
+  background-color:rgb(131, 133, 139);
+  text-align: center;
+  justify-content: center;
+  text-align: center;
+  margin-right: 200px;
+  margin-left: 200px;
+  cursor:default;
+  }
+
+.container {
+  display: grid;
+  grid-template-areas:
+    "pageHeader pageHeader"
+    "kalenderblatt text_box"
+    "kalenderblatt history";
+  grid-template-columns: 1fr 1fr;
+  padding: 20px;
+}
+
+.pageHeader {
+  grid-area: pageHeader;
+  font-size: 60px;
+  color: black;
+  padding: 30px;
+  text-align: center;
+}
+
+#kalenderblatt {
+  grid-area: kalenderblatt;
+}
+
+#kalenderHeader {
+  font-size: 60px;
+  color: black;
+  padding: 40px;
+  font-weight: bold;
+  text-align: center;
+}
+
+
+  .kalenderNav button {
+  background-color: rgb(191, 190, 189);
+  color:  rgb(89, 88, 88);
+  border: none;
+  font-size: 25px;
+  cursor: pointer;
+}
+.kalenderNav button:hover {
+background-color: #eef6ff;
+}
+
+#kalenderTable {
+  margin: 15px auto;
+  font-size: 40px;
+  color: rgb(36, 35, 35);
+  
+  border-collapse: collapse;
+  table-layout: fixed;
+  width: 80%;
+  height: 70%;
+}
+
+th {
+  background-color: #75777c;
+  color: rgb(36, 35, 35);
+  padding: 15px;
+}
+
+#tableBody {
+  color: rgb(36, 35, 35);
+  background-color: rgb(176, 174, 174);
+}
+
+#tableBody td {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+td:hover {
+  background-color:  #eef6ff;
+}
+
+.offsets {
+  color: rgb(141, 140, 140);
+  background-color: hsla(0, 5%, 79%, 0.263);
+}
+.offsets:hover {
+  background-color:none;
+}
+
+.weekendOffsets {
+  color: black;
+color: rgb(141, 140, 140);}
+
+
+.samstag,
+SA {
+  color: rgb(33, 33, 208);
+}
+
+.sonntag,
+SO {
+  color: rgb(206, 31, 31);
+}
+
+.Andre’sBirthday {
+  color: oklab(59.853% -0.15261 0.12177);
+}
+
+.today {
+  border: 1px solid rgb(75, 83, 83);
+}
+
+.feiertag {
+  background-color: #9aab87;
+}
+
+
+#text_box {
+  grid-area: text_box;
+  font-size: 30px;
+  text-align: left;
+  margin-left: 200px;
+  width: 50%;
+}
+
+
+#history {
+  text-align: center;
+  border-radius: 20px;
+  font-size: 40px;
+  padding: 30px;
+  margin-left: 200px;
+  margin-top: 8rem;
+  width: 50%;
+}
+
+
+#eventsList {
+  background: rgb(186, 181, 181);         
+  border-radius: 10px; 
+  text-align: left;
+  font-size: 30px;
+  margin-left: 200px;
+  margin-bottom: 8rem;
+  width: 50%;
+}
+
+#eventsList li {
+  padding: 15px 20px;          
+}
+
+#eventsList li:hover {
+  background-color: #eef6ff;
+}
+
+#eventsList .year {
+  font-weight: bold;          
+  color: rgb(50, 50, 151);                
+}
+
+
+/* 
+*{
+  border: 1px red solid 
+}  */
