@@ -10,14 +10,14 @@ let todayDateFormatted = todayDayFormatted + '.' + todayMonthFormatted + '.' + t
 
 // daynamic
 
-let renderDay = today.getDate();
-let renderDayFormatted = todayDay.toString().padStart(2, '0');
+// let renderDay = today.getDate();
+// let renderDayFormatted = todayDay.toString().padStart(2, '0');
 
-let renderMonth = today.getMonth();
-let renderMonthFormatted = todayDayFormatted + '.' + todayMonthFormatted + '.' + todayYear;
+// let renderMonth = today.getMonth();
+// let renderMonthFormatted = todayDayFormatted + '.' + todayMonthFormatted + '.' + todayYear;
 
-let renderYear = today.getFullYear();
-let renderDateFormatted = todayDayFormatted + '.' + todayMonthFormatted + '.' + todayYear;
+// let renderYear = today.getFullYear();
+// let renderDateFormatted = todayDayFormatted + '.' + todayMonthFormatted + '.' + todayYear;
 
 document.getElementById("fullDate1").textContent = todayDateFormatted;
 document.getElementById("fullDate2").textContent = todayDateFormatted;
@@ -53,21 +53,49 @@ if (feiertagsName) {
 // HELPER FUNCTIONS for dynamic//
 
 
-function updateCalender (todayYear, todayMonthFormatted) {
-    let firstDay = new Date(renderYear, renderMonth);
-    let lastDay = new Date(renderYear, renderMonth);
-    let todayDateFormatted;
-    let todayMonthFormatted;
+function updateCalender () {
+    let title= document.querySelector("title");
+    let fullDate1 = document.getElementById("fullDate1")
+    // let fullDate2 = document.getElementById("fullDate2");
+    // let fullWeekday1 = document.getElementById("fullWeekday1");
+    // let nthWeekday = document.getElementById("nthWeekday");
+    // let fullWeekday2 = document.getElementById("fullWeekday2");
+    // let fullMonth = document.getElementById("fullMonth");
+    // let currentYear = document.getElementById("currentYear");
+    // let monthName = document.getElementById("monthName");
+    // let daysInMonth = document.getElementById("daysInMonth");
+    // let holiday = document.getElementById("holiday");
+    // let fullDate3 = document.getElementById("fullDate3");
+
+
+
+    title.textContent = `${todayDay}.${todayMonth + 1}.${todayYear}`;
+    fullDate1.textContent = `${todayDay}.${todayMonth + 1}.${todayYear}`;
+    // fullDate2.textContent = `${todayDay}.${todayMonth + 1}.${todayYear}`;
+    // fullDate2.textContent = `${todayDay}.${todayMonth + 1}.${todayYear}`;
+    // fullWeekday1.textContent = `${todayDay}.${todayMonth + 1}.${todayYear}`;
+    // nthWeekday.textContent = `${todayDay}.${todayMonth + 1}.${todayYear}`;
+    // fullWeekday2.textContent = `${todayDay}.${todayMonth + 1}.${todayYear}`;
+    // fullMonth.textContent = `${todayDay}.${todayMonth + 1}.${todayYear}`;
+    // currentYear.textContent = `${todayDay}.${todayMonth + 1}.${todayYear}`;
+    // monthName.textContent = `${todayDay}.${todayMonth + 1}.${todayYear}`;
+    // daysInMonth.textContent = `${todayDay}.${todayMonth + 1}.${todayYear}`;
+    // holiday.textContent = `${todayDay}.${todayMonth + 1}.${todayYear}`;
+    // fullDate3.textContent = `${todayDay}.${todayMonth + 1}.${todayYear}`;
 
 
 
 
-
-    
 
 }
 
 
+function selectDate(date) {
+    todayDay = date.getDate();
+    todayMonth = date.getMonth();
+    todayYear = date.getFullYear();
+    updateCalender();
+}
 
 document.getElementById("prev").addEventListener("click", () => {
     todayMonth--;
@@ -220,6 +248,8 @@ function renderCalenderStart2(renderYear, renderMonth) {     // funktion to rend
             } else if (weekday == 0) {
                 cell.classList.add("sonntag")
             }
+            cell.addEventListener('click', function() { selectDate (day); });
+
         }
         if (isToday2(day)) {
             cell.classList.add("today");
