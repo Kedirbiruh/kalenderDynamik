@@ -8,9 +8,14 @@ let todayMonthFormatted = (todayMonth + 1).toString().padStart(2, '0');
 let todayYear = today.getFullYear();
 let todayDateFormatted = todayDayFormatted + '.' + todayMonthFormatted + '.' + todayYear;
 
+// let displayMonth = today.getMonth();
+// let displayYear = today.getFullYear();
+
+
 document.getElementById("fullDate1").textContent = todayDateFormatted;
 document.getElementById("fullDate2").textContent = todayDateFormatted;
 document.getElementById("fullDate3").textContent = todayDateFormatted;
+
 document.title = "Kalender " + todayDateFormatted;
 
 let weekdaysIndex = today.getDay();
@@ -43,14 +48,14 @@ if (feiertagsName) {
 
 
 function updateCalender () {
-let todayDayFormatted1 =  todayDay.toString().padStart(2, '0');
-let todayMonthFormatted1 = (todayMonth + 1).toString().padStart(2, '0');
+    let todayDayFormatted1 =  todayDay.toString().padStart(2, '0');
+    let todayMonthFormatted1 = (todayMonth + 1).toString().padStart(2, '0');
 
 
     let title= document.querySelector("title");
     let fullDate1 = document.getElementById("fullDate1")
     let fullDate2 = document.getElementById("fullDate2");
-    let fullWeekday1 = document.getElementById("fullWeekday1");
+    // let fullWeekday1 = document.getElementById("fullWeekday1");
     // let nthWeekday = document.getElementById("nthWeekday");
     // let fullWeekday2 = document.getElementById("fullWeekday2");
     // let fullMonth = document.getElementById("fullMonth");
@@ -62,6 +67,7 @@ let todayMonthFormatted1 = (todayMonth + 1).toString().padStart(2, '0');
 
 
 
+
     title.textContent = `${todayDayFormatted1}.${todayMonthFormatted1}.${todayYear}`;
     fullDate1.textContent = `${todayDayFormatted1}.${todayMonthFormatted1}.${todayYear}`;
     fullDate2.textContent = `${todayDayFormatted1}.${todayMonthFormatted1}.${todayYear}`;
@@ -70,12 +76,11 @@ let todayMonthFormatted1 = (todayMonth + 1).toString().padStart(2, '0');
     // fullWeekday2.textContent = 
     // fullMonth.textContent = 
     currentYear.textContent = `${todayYear}`;
-    // monthName.textContent = 
+    // monthName.textContent =  monthNames[renderMonthonth];
     // daysInMonth.textContent = 
     // holiday.textContent = 
     fullDate3.textContent = `${todayDayFormatted1}.${todayMonthFormatted1}.${todayYear}`;
     
-
 
 
 
@@ -89,6 +94,7 @@ function selectDate(date) {
     todayYear = date.getFullYear();
     updateCalender();
 }
+
 
 document.getElementById("prev").addEventListener("click", () => {
     todayMonth--;
@@ -107,6 +113,27 @@ document.getElementById("next").addEventListener("click", () => {
     }
     renderCalenderStart2(todayYear, todayMonth);
 });
+
+
+
+
+// document.getElementById("prev").addEventListener("click", () => {
+//     displayMonth--;
+//     if (displayMonth < 0) {
+//         displayMonth = 11;
+//         displayYear--;
+//     }
+//     renderCalenderStart2(displayYear, displayMonth);
+// });
+
+// document.getElementById("next").addEventListener("click", () => {
+//     displayMonth++;
+//     if (displayMonth > 11) {
+//         displayMonth = 0;
+//         displayYear++;
+//     }
+//     renderCalenderStart2(displayYear, displayMonth);
+// });
 
 
 function getWeekdayGerman(index) {
