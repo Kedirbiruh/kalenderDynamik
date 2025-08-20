@@ -86,6 +86,17 @@ function updateCalender() {
 
 }
 
+// funktion = updateAllForSelectedDay(year, month,day) {
+//     selectedDay = day;
+//     selectedMonth = month;
+//     selectedYear = year;
+//     let date = new Date(year,month,day)
+//     weekday = date.getDay();
+//     feiertagsName = getFeiertag(date);
+
+// }
+
+
 document.getElementById("prev").addEventListener("click", () => {
     displayMonth--;
     if (displayMonth < 0) {
@@ -93,6 +104,7 @@ document.getElementById("prev").addEventListener("click", () => {
         displayYear--;
     }
     renderCalenderStart2(displayYear, displayMonth);
+    // updateAllForSelectedDay(displayYear, displayMonth, 1);
 });
 
 document.getElementById("next").addEventListener("click", () => {
@@ -102,6 +114,7 @@ document.getElementById("next").addEventListener("click", () => {
         displayYear++;
     }
     renderCalenderStart2(displayYear, displayMonth);
+    // updateAllForSelectedDay(displayYear, displayMonth, 1);
 });
 
 function getWeekdayGerman(index) {
