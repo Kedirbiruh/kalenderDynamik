@@ -1,0 +1,154 @@
+// format the nesseary ids and classes to fill the html
+//in the function formatSelectedCell
+function formatSelectedCell(dateForCell) {
+  const clickedDate = new Date(selectedYear, selectedMonth, dateForCell);
+  selectedYear = clickedDate.getFullYear();
+  selectedMonth = clickedDate.getMonth();
+  const formattedClickedDate = clickedDate.toLocaleDateString("de-DE", options);
+  document.getElementById("todaydate").textContent = formattedClickedDate;
+  document.getElementById("weekdaynumber").textContent =
+    getWeekOfDate(clickedDate);
+  document.getElementById("historydate").textContent = formattedClickedDate;
+  document.getElementById("Kopfzeile").textContent =
+    "  Kalenderblatt vom" + " " + formattedClickedDate + " " + selectedYear;
+  document.title = "Kalender " + formattedClickedDate + " " + selectedYear;
+
+  const weekdayName = weekdays[clickedDate.getDay()];
+  document
+    .querySelectorAll(".weekday")
+    .forEach((el) => (el.textContent = weekdayName));
+
+  // Feiertagsprüfung
+  document.getElementById("holiday").textContent = isHoliday(clickedDate)
+    ? isHoliday(clickedDate).name
+    : "kein Feiertag";
+
+  let tageBisJetzt = 0; //speichert die gesamtanzahl an tagen der vorherigen Monate
+  for (let monatIndex = 0; monatIndex < clickedDate.getMonth(); monatIndex++) {
+    //Zählerschleife die bei 0 beginnt und solange zählt bis monatIndex kleiner als der aktuelle Monat ist also 5 Juni
+    tageBisJetzt = tageBisJetzt + daysOfMonth[monatIndex]; //Nun wird die Anzahl der Tage des Monats zu der Gesamtanzahl der Tage addiert bis juni
+  }
+  tageBisJetzt += clickedDate.getDate(); // und die Anzahl der Tage des aktuellen Monats wird hinzugefügt
+
+  document.getElementById("daysOfYear").textContent = tageBisJetzt;
+
+  document.getElementById("monthYear").textContent =
+    monthNames[selectedMonth] + " " + selectedYear;
+
+  // Tage des Monats anzeigen lassen
+  let endeMonat = daysOfMonth[clickedDate.getMonth()];
+  document.getElementById("lastday").textContent = endeMonat;
+
+  historischeListe(clickedDate.getMonth(), clickedDate.getDate()); //Funktion Api zeigt jedes Ereigniss nach click an für den Tag
+}
+formatSelectedCell(heute.getDate());
+
+
+// Wochentag des gesamten Monats in der Infobox anzeigen
+function getWeekOfDate(date) {
+  let WeekdayDate = date.getDate();
+  let weekdayText = "";
+
+  if (WeekdayDate <= 7) {
+    weekdayText = "erste";
+  } else if (WeekdayDate <= 14) {
+    weekdayText = "zweite";
+  } else if (WeekdayDate <= 21) {
+    weekdayText = "dritte";
+  } else if (WeekdayDate <= 28) {
+    weekdayText = "vierte";
+  } else {
+    weekdayText = "fünfte";
+  }
+  return weekdayText;
+}
+
+document.getElementById("historydate").textContent = heuteAsFormattedDate;
+
+// Generate calendar on page load
+generateCalendar(selectedYear, heuteMonat);
+
+// Calendar generation function
+function generateCalendar(year, month) {
+  const firstDay = new Date(year, month, 1);
+  let weekdayOfFirstOfMonth = firstDay.getDay();
+  const lastDayOfMonth = new Date(year, month + 1, 0).getDate();
+  // Verrücken der Wochentage damit Kalender mit MO=0 beginnt statt Sonntag
+  weekdayOfFirstOfMonth = (weekdayOfFirstOfMonth + 6) % 7;
+
+  const tablebody = document.getElementById("clickelement"); //leeren der tabelle
+  tablebody.innerHTML = "";
+
+  let currentDate = 1 - weekdayOfFirstOfMonth; // Berechnung der Tage die frei bleiben bis zum ersten
+
+  //Schleifi erstellt Tabelle
+  for (let week = 0; week < 6; week++) {
+    const tablerow = document.createElement("tr");
+    for (let day = 0; day < 7; day++) {
+      const tablecell = document.createElement("td");
+      if (currentDate < 1 || currentDate > lastDayOfMonth) {
+        // Bedingung wann Zellen leer bleiben
+        tablecell.innerText = "";
+      } else {
+        const dateForCell = currentDate; // <-- Speichere das Datum lokal um beim event.listner das datum zu bekommen
+        tablecell.innerText = dateForCell;
+        if (
+          // Highlight den heutigen Tag
+          year === heuteJahr &&
+          month === heuteMonat &&
+          currentDate === heuteTag
+        ) {
+          tablecell.classList.add("today");
+        }
+
+        //datum im infotext ändert sich
+        tablecell.addEventListener("click", () =>
+          formatSelectedCell(dateForCell)
+        );
+      }
+      //Tablle ihre Kinderelemente zufügen
+      tablerow.appendChild(tablecell);
+      currentDate++;
+    }
+    tablebody.appendChild(tablerow);
+  }
+}
+
+function changeMonth(delta) {
+  selectedMonth += delta;
+  if (selectedMonth > 11) {
+    selectedMonth = 0;
+    selectedYear++;
+  } else if (selectedMonth < 0) {
+    selectedMonth = 11;
+    selectedYear--;
+  }
+
+  feiertage = calcEasternforThisYear(selectedYear);
+  generateCalendar(selectedYear, selectedMonth);
+  updateHeadline();
+  updateTitle();
+}
+// Titel ändern für das jeweils angezeigte Kalenderblatt
+function updateTitle() {
+  document.title =
+    "Kalender " +
+    selectedDay +
+    " " +
+    monthNames[selectedMonth] +
+    " " +
+    selectedYear;
+}
+
+// Beim Laden der Seite den Titel setzen
+
+// Die updateHeadline() Funktion erweitern
+function updateHeadline() {
+  let currentDate = new Date(selectedYear, selectedMonth);
+  let headline = currentDate.toLocaleDateString("de-DE", {
+    month: "long",
+    year: "numeric",
+  });
+  document.getElementById("Kopfzeile").textContent =
+    "Kalenderblatt " + headline;
+}
