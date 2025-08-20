@@ -8,9 +8,8 @@ let todayMonthFormatted = (todayMonth + 1).toString().padStart(2, '0');
 let todayYear = today.getFullYear();
 let todayDateFormatted = todayDayFormatted + '.' + todayMonthFormatted + '.' + todayYear;
 
-// let displayMonth = today.getMonth();
-// let displayYear = today.getFullYear();
-
+let displayMonth = today.getMonth();
+let displayYear = today.getFullYear();
 
 document.getElementById("fullDate1").textContent = todayDateFormatted;
 document.getElementById("fullDate2").textContent = todayDateFormatted;
@@ -44,54 +43,47 @@ if (feiertagsName) {
 
 
 // HELPER FUNCTIONS for dynamic//
+function selectDate(date) {
+    selectedDay = date.getDate();
+    selectedMonth = date.getMonth();
+    selectedYear = date.getFullYear();
+    weekday = date.getDay();
+    feiertagsName = getFeiertag(date);
+    updateCalender();
+}
 
-
-function updateCalender () {
-    let todayDayFormatted1 =  todayDay.toString().padStart(2, '0');
-    let todayMonthFormatted1 = (todayMonth + 1).toString().padStart(2, '0');
-
-
-    let title= document.querySelector("title");
+function updateCalender() {
+    let todayDayFormatted1 = selectedDay.toString().padStart(2, '0');
+    let todayMonthFormatted1 = (selectedMonth + 1).toString().padStart(2, '0');
+    let title = document.querySelector("title");
     let fullDate1 = document.getElementById("fullDate1")
     let fullDate2 = document.getElementById("fullDate2");
-    // let fullWeekday1 = document.getElementById("fullWeekday1");
-    // let nthWeekday = document.getElementById("nthWeekday");
-    // let fullWeekday2 = document.getElementById("fullWeekday2");
-    // let fullMonth = document.getElementById("fullMonth");
+    let fullWeekday1 = document.getElementById("fullWeekday1");
+    let nthWeekday = document.getElementById("nthWeekday");
+    let fullWeekday2 = document.getElementById("fullWeekday2");
+    let fullMonth = document.getElementById("fullMonth");
     let currentYear = document.getElementById("currentYear");
     let monthName = document.getElementById("monthName");
     let daysInMonth = document.getElementById("daysInMonth");
     let holiday = document.getElementById("holiday");
     let fullDate3 = document.getElementById("fullDate3");
+    let eventsList = document.getElementById("eventsList");
 
+    title.textContent = "Kalender" + " " + `${todayDayFormatted1}.${todayMonthFormatted1}.${selectedYear}`;
+    fullDate1.textContent = `${todayDayFormatted1}.${todayMonthFormatted1}.${selectedYear}`;
+    fullDate2.textContent = `${todayDayFormatted1}.${todayMonthFormatted1}.${selectedYear}`;
+    fullWeekday1.textContent = `${getWeekdayGerman(weekday)}`;
+    nthWeekday.textContent = `${getNthWeekdayInMonth2(selectedDay)}`;
+    fullWeekday2.textContent = `${getWeekdayGerman(weekday)}`;
+    fullMonth.textContent = `${getMonthGerman(selectedMonth)}`;
+    currentYear.textContent = `${selectedYear}`;
+    monthName.textContent = `${getMonthGerman(selectedMonth)}`;
+    daysInMonth.textContent = getDaysInMonth(selectedYear, selectedMonth);
+    holiday.textContent = `${feiertagsName == false ? "Heute ist kein gesetzlicher Feiertag in Hessen" : 
+                            `Heute ist ein gesetzlicher Feiertag in Hessen: ${feiertagsName}.`}`;
+    fullDate3.textContent = `${todayDayFormatted1}.${todayMonthFormatted1}.${selectedYear}`;
+    eventsList.textContent = fetchData(selectedMonth, selectedDay);     
 
-
-
-    title.textContent = `${todayDayFormatted1}.${todayMonthFormatted1}.${todayYear}`;
-    fullDate1.textContent = `${todayDayFormatted1}.${todayMonthFormatted1}.${todayYear}`;
-    fullDate2.textContent = `${todayDayFormatted1}.${todayMonthFormatted1}.${todayYear}`;
-    // fullWeekday1.textContent = `${getWeekdayGerman(weekdaysIndex)}`;
-    // nthWeekday.textContent = 
-    // fullWeekday2.textContent = 
-    // fullMonth.textContent = 
-    currentYear.textContent = `${todayYear}`;
-    // monthName.textContent =  monthNames[renderMonthonth];
-    // daysInMonth.textContent = 
-    // holiday.textContent = 
-    fullDate3.textContent = `${todayDayFormatted1}.${todayMonthFormatted1}.${todayYear}`;
-    
-
-
-
-
-}
-
-
-function selectDate(date) {
-    todayDay = date.getDate();
-    todayMonth = date.getMonth();
-    todayYear = date.getFullYear();
-    updateCalender();
 }
 
 document.getElementById("prev").addEventListener("click", () => {
