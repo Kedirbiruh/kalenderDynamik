@@ -48,53 +48,49 @@ if (feiertagsName) {
 
 
 function selectDate(date) {
-    todayDay = date.getDate();
-    todayMonth = date.getMonth();
-    todayYear = date.getFullYear();
+    selectedDay = date.getDate();
+    selectedMonth = date.getMonth();
+    selectedYear = date.getFullYear();
     weekday = date.getDay();
-    nthWeekday = 
+
+    // nthWeekday = 
     updateCalender();
 }
 
 
 
+
 function updateCalender() {
-    let todayDayFormatted1 = todayDay.toString().padStart(2, '0');
-    let todayMonthFormatted1 = (todayMonth + 1).toString().padStart(2, '0');
-
-
+    let todayDayFormatted1 = selectedDay.toString().padStart(2, '0');
+    let todayMonthFormatted1 = (selectedMonth + 1).toString().padStart(2, '0');
     let title = document.querySelector("title");
     let fullDate1 = document.getElementById("fullDate1")
     let fullDate2 = document.getElementById("fullDate2");
     let fullWeekday1 = document.getElementById("fullWeekday1");
-    // let nthWeekday = document.getElementById("nthWeekday");
+    let nthWeekday = document.getElementById("nthWeekday");
     let fullWeekday2 = document.getElementById("fullWeekday2");
     let fullMonth = document.getElementById("fullMonth");
     let currentYear = document.getElementById("currentYear");
     let monthName = document.getElementById("monthName");
-    // let daysInMonth = document.getElementById("daysInMonth");
+    let daysInMonth = document.getElementById("daysInMonth");
     // let holiday = document.getElementById("holiday");
     let fullDate3 = document.getElementById("fullDate3");
 
 
 
-
-    title.textContent = `${todayDayFormatted1}.${todayMonthFormatted1}.${todayYear}`;
-    fullDate1.textContent = `${todayDayFormatted1}.${todayMonthFormatted1}.${todayYear}`;
-    fullDate2.textContent = `${todayDayFormatted1}.${todayMonthFormatted1}.${todayYear}`;
+    title.textContent = "Kalender" + " " + `${todayDayFormatted1}.${todayMonthFormatted1}.${selectedYear}`;
+    fullDate1.textContent = `${todayDayFormatted1}.${todayMonthFormatted1}.${selectedYear}`;
+    fullDate2.textContent = `${todayDayFormatted1}.${todayMonthFormatted1}.${selectedYear}`;
     fullWeekday1.textContent = `${getWeekdayGerman(weekday)}`;
-    // nthWeekday.textContent = `${getNthWeekdayInMonth(todayDay)}`;
+    nthWeekday.textContent = `${getNthWeekdayInMonth2(selectedDay)}`;
     fullWeekday2.textContent = `${getWeekdayGerman(weekday)}`;
-    fullMonth.textContent = `${getMonthGerman(todayMonth)}`;
-    currentYear.textContent = `${todayYear}`;
-    monthName.textContent = `${getMonthGerman(todayMonth)}`;
-    // daysInMonth.textContent = 
+    fullMonth.textContent = `${getMonthGerman(selectedMonth)}`;
+    currentYear.textContent = `${selectedYear}`;
+    monthName.textContent = `${getMonthGerman(selectedMonth)}`;
+    daysInMonth.textContent = getDaysInMonth(selectedYear, selectedMonth);
     // holiday.textContent = 
-    fullDate3.textContent = `${todayDayFormatted1}.${todayMonthFormatted1}.${todayYear}`
-
-
+    fullDate3.textContent = `${todayDayFormatted1}.${todayMonthFormatted1}.${selectedYear}`
 }
-
 
 
 document.getElementById("prev").addEventListener("click", () => {
@@ -114,7 +110,6 @@ document.getElementById("next").addEventListener("click", () => {
     }
     renderCalenderStart2(displayYear, displayMonth);
 });
-
 
 function getWeekdayGerman(index) {
     const weekdayNames = ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'];
@@ -200,7 +195,6 @@ function getKarfreitag(year) {
     return new Date(easterSunday.getFullYear(), easterSunday.getMonth(), easterSunday.getDate() - 2);
 }
 
-
 // Berechnung von  anhand von Ostersonntag:
 function getOstermontag(year) {
     const easterSunday = getEasterSunday(year);
@@ -234,7 +228,7 @@ function renderCalenderStart2(renderYear, renderMonth) {     // funktion to rend
         }
         // Zelle
         let cell = document.createElement("td");
-        cell.innerText = day.getDate();
+        cell.innerText = `${day.getDate()}`;
         if (day.getMonth() !== renderMonth) {
             if (weekday == 6 || weekday == 0) {
                 cell.classList.add("weekendOffsets");
@@ -305,8 +299,7 @@ function getNthWeekdayInMonth(date) {
     return ordinal;
 }
 
-function getNthWeekdayInMonth2(date) {
-    const dayOfMonth = date.getDate();
+function getNthWeekdayInMonth2(dayOfMonth) {
     if (dayOfMonth < 8) return 'erster';
     if (dayOfMonth < 15) return 'zweiter';
     if (dayOfMonth < 22) return 'dritter';
@@ -314,14 +307,13 @@ function getNthWeekdayInMonth2(date) {
     return 'fünfter';
 }
 
-function getNthWeekdayInMonth3(date) {
-    const dayOfMonth = date.getDate();
-    if (dayOfMonth < 8) return 1;
-    if (dayOfMonth < 15) return 2;
-    if (dayOfMonth < 22) return 3;
-    if (dayOfMonth < 29) return 4;
-    return 5;
-}
+// function getNthWeekdayInMonth3(dayOfMonth) {
+//     if (dayOfMonth < 8) return 1;
+//     if (dayOfMonth < 15) return 2;
+//     if (dayOfMonth < 22) return 3;
+//     if (dayOfMonth < 29) return 4;
+//     return 5;
+// }
 
 function getNthWeekdayInMonth4(date) {
     const wievielterArray = ['erster', 'zweiter', 'dritter', 'vierter', 'fünfter'];

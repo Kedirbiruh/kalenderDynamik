@@ -1,57 +1,56 @@
 <!DOCTYPE html>
 <html lang="de">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="style.css" />
-    <title>Kalender </title>
-  </head>
-  <body>
-    <div class="container">
-      <div class="pageHeader">
-        <h1 id="titleHeader">KALENDERBLATT <span id="fullDate1"></span></h1>
-      </div>
-      <div id="kalenderblatt">
-        <div class="kalenderNav">
-          <button id="prev"title="Vorheriger Monat & Jahr">◀</button>
-          <span id="kalenderHeader"></span>
-          <button id="next"title="Nächster Monat & Jahr">▶</button>
-        </div>
-        <table id="kalenderTable">
-          <thead>
-            <tr>
-              <th>MO</th>
-              <th>DI</th>
-              <th>MI</th>
-              <th>DO</th>
-              <th>FR</th>
-              <th>SA</th>
-              <th>SO</th>
-            </tr>
-          </thead>
-          <tbody id="tableBody"></tbody>
-        </table>
-      </div>
-      <div id="text_box">
-        <p>
-          Der <span id="fullDate2"></span> ist ein
-          <span id="fullWeekday1"></span> und zwar der
-          <span id="nthWeekday"></span> <span id="fullWeekday2"></span> im Monat
-          <span id="fullMonth"> </span> des Jahres
-          <span id="currentYear"></span>. Dieser
-          <span id="monthName"> </span> hat
-          <span id="daysInMonth"> </span> Tage. <span id="holiday"></span>
-        </p>
-      </div>
-      <div>
-        <h3 id="history">historical events on <span id="fullDate3"></span></h3>
-        <ul id="eventsList"></ul>
-      </div>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
+  <title>Kalender </title>
+</head>
+
+<body>
+  <div class="container">
+    <div class="pageHeader">
+      <h1 id="titleHeader">KALENDERBLATT <span id="fullDate1"></span></h1>
     </div>
-    <script src="script.js"></script>
-  </body>
+    <div id="kalenderblatt">
+      <div class="kalenderNav">
+        <button id="prev" title="Vorheriger Monat & Jahr">◀</button>
+        <span id="kalenderHeader"></span>
+        <button id="next" title="Nächster Monat & Jahr">▶</button>
+      </div>
+      <table id="kalenderTable">
+        <thead>
+          <tr>
+            <th>MO</th>
+            <th>DI</th>
+            <th>MI</th>
+            <th>DO</th>
+            <th>FR</th>
+            <th>SA</th>
+            <th>SO</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+      </table>
+    </div>
+    <div id="text_box">
+      <p>
+        Der <span id="fullDate2"></span> ist ein
+        <span id="fullWeekday1"></span> und zwar der
+        <span id="nthWeekday"></span> <span id="fullWeekday2"></span> im Monat
+        <span id="fullMonth"> </span> des Jahres
+        <span id="currentYear"></span>. Dieser
+        <span id="monthName"> </span> hat
+        <span id="daysInMonth"> </span> Tage. <span id="holiday"></span>
+      </p>
+    </div>
+    <div>
+      <h3 id="history">historical events on <span id="fullDate3"></span></h3>
+      <ul id="eventsList"></ul>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+
 </html>
-
-
-
-
