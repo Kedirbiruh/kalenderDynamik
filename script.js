@@ -8,8 +8,8 @@ let todayMonthFormatted = (todayMonth + 1).toString().padStart(2, '0');
 let todayYear = today.getFullYear();
 let todayDateFormatted = todayDayFormatted + '.' + todayMonthFormatted + '.' + todayYear;
 
-// let displayMonth = today.getMonth();
-// let displayYear = today.getFullYear();
+let displayMonth = today.getMonth();
+let displayYear = today.getFullYear();
 
 
 document.getElementById("fullDate1").textContent = todayDateFormatted;
@@ -47,20 +47,31 @@ if (feiertagsName) {
 // HELPER FUNCTIONS for dynamic//
 
 
-function updateCalender () {
-    let todayDayFormatted1 =  todayDay.toString().padStart(2, '0');
+function selectDate(date) {
+    todayDay = date.getDate();
+    todayMonth = date.getMonth();
+    todayYear = date.getFullYear();
+    weekday = date.getDay();
+    nthWeekday = 
+    updateCalender();
+}
+
+
+
+function updateCalender() {
+    let todayDayFormatted1 = todayDay.toString().padStart(2, '0');
     let todayMonthFormatted1 = (todayMonth + 1).toString().padStart(2, '0');
 
 
-    let title= document.querySelector("title");
+    let title = document.querySelector("title");
     let fullDate1 = document.getElementById("fullDate1")
     let fullDate2 = document.getElementById("fullDate2");
-    // let fullWeekday1 = document.getElementById("fullWeekday1");
+    let fullWeekday1 = document.getElementById("fullWeekday1");
     // let nthWeekday = document.getElementById("nthWeekday");
-    // let fullWeekday2 = document.getElementById("fullWeekday2");
-    // let fullMonth = document.getElementById("fullMonth");
+    let fullWeekday2 = document.getElementById("fullWeekday2");
+    let fullMonth = document.getElementById("fullMonth");
     let currentYear = document.getElementById("currentYear");
-    // let monthName = document.getElementById("monthName");
+    let monthName = document.getElementById("monthName");
     // let daysInMonth = document.getElementById("daysInMonth");
     // let holiday = document.getElementById("holiday");
     let fullDate3 = document.getElementById("fullDate3");
@@ -71,69 +82,38 @@ function updateCalender () {
     title.textContent = `${todayDayFormatted1}.${todayMonthFormatted1}.${todayYear}`;
     fullDate1.textContent = `${todayDayFormatted1}.${todayMonthFormatted1}.${todayYear}`;
     fullDate2.textContent = `${todayDayFormatted1}.${todayMonthFormatted1}.${todayYear}`;
-    // fullWeekday1.textContent = `${getWeekdayGerman(weekdaysIndex)}`;
-    // nthWeekday.textContent = 
-    // fullWeekday2.textContent = 
-    // fullMonth.textContent = 
+    fullWeekday1.textContent = `${getWeekdayGerman(weekday)}`;
+    // nthWeekday.textContent = `${getNthWeekdayInMonth(todayDay)}`;
+    fullWeekday2.textContent = `${getWeekdayGerman(weekday)}`;
+    fullMonth.textContent = `${getMonthGerman(todayMonth)}`;
     currentYear.textContent = `${todayYear}`;
-    // monthName.textContent =  monthNames[renderMonthonth];
+    monthName.textContent = `${getMonthGerman(todayMonth)}`;
     // daysInMonth.textContent = 
     // holiday.textContent = 
-    fullDate3.textContent = `${todayDayFormatted1}.${todayMonthFormatted1}.${todayYear}`;
-    
-
-
+    fullDate3.textContent = `${todayDayFormatted1}.${todayMonthFormatted1}.${todayYear}`
 
 
 }
 
-
-function selectDate(date) {
-    todayDay = date.getDate();
-    todayMonth = date.getMonth();
-    todayYear = date.getFullYear();
-    updateCalender();
-}
 
 
 document.getElementById("prev").addEventListener("click", () => {
-    todayMonth--;
-    if (todayMonth < 0) {
-        todayMonth = 11;
-        todayYear--;
+    displayMonth--;
+    if (displayMonth < 0) {
+        displayMonth = 11;
+        displayYear--;
     }
-    renderCalenderStart2(todayYear, todayMonth);
+    renderCalenderStart2(displayYear, displayMonth);
 });
 
 document.getElementById("next").addEventListener("click", () => {
-    todayMonth++;
-    if (todayMonth > 11) {
-        todayMonth = 0;
-        todayYear++;
+    displayMonth++;
+    if (displayMonth > 11) {
+        displayMonth = 0;
+        displayYear++;
     }
-    renderCalenderStart2(todayYear, todayMonth);
+    renderCalenderStart2(displayYear, displayMonth);
 });
-
-
-
-
-// document.getElementById("prev").addEventListener("click", () => {
-//     displayMonth--;
-//     if (displayMonth < 0) {
-//         displayMonth = 11;
-//         displayYear--;
-//     }
-//     renderCalenderStart2(displayYear, displayMonth);
-// });
-
-// document.getElementById("next").addEventListener("click", () => {
-//     displayMonth++;
-//     if (displayMonth > 11) {
-//         displayMonth = 0;
-//         displayYear++;
-//     }
-//     renderCalenderStart2(displayYear, displayMonth);
-// });
 
 
 function getWeekdayGerman(index) {
@@ -173,7 +153,7 @@ function getFeiertag(datum) {
     } else if (areDatesEqual(datum, karfreitag)) {
         return "Karfreitag";
     } else if (areDatesEqual(datum, easterSunday)) {
-        return "Ostersonntag";  
+        return "Ostersonntag";
     } else if (areDatesEqual(datum, ostermontag)) {
         return "Ostermontag";
     } else if (areDatesEqual(datum, fronleichnam)) {
@@ -234,7 +214,7 @@ function getFronleichnam(year) {
 }
 
 function renderCalenderStart2(renderYear, renderMonth) {     // funktion to render days
-    document.getElementById("kalenderHeader").textContent = `${getMonthGerman(todayMonth)} ${todayYear}`;
+    document.getElementById("kalenderHeader").textContent = `${getMonthGerman(renderMonth)} ${renderYear}`;
     let tableBody = document.getElementById("tableBody");
     tableBody.innerHTML = "";
 
@@ -268,7 +248,7 @@ function renderCalenderStart2(renderYear, renderMonth) {     // funktion to rend
             } else if (weekday == 0) {
                 cell.classList.add("sonntag")
             }
-            cell.addEventListener('click', function() { selectDate (day); });
+            cell.addEventListener('click', function () { selectDate(day); });
 
         }
         if (isToday2(day)) {
@@ -280,7 +260,7 @@ function renderCalenderStart2(renderYear, renderMonth) {     // funktion to rend
         if (getFeiertag(day)) {
             cell.classList.add("feiertag");
         }
-        
+
         // Table Row abschließen
         row.appendChild(cell);
         if (weekday === 0) {
