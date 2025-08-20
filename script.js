@@ -8,8 +8,8 @@ let todayMonthFormatted = (todayMonth + 1).toString().padStart(2, '0');
 let todayYear = today.getFullYear();
 let todayDateFormatted = todayDayFormatted + '.' + todayMonthFormatted + '.' + todayYear;
 
-// let displayMonth = today.getMonth();
-// let displayYear = today.getFullYear();
+let displayMonth = today.getMonth();
+let displayYear = today.getFullYear();
 
 
 document.getElementById("fullDate1").textContent = todayDateFormatted;
@@ -47,15 +47,27 @@ if (feiertagsName) {
 // HELPER FUNCTIONS for dynamic//
 
 
+
+
+// function upDatinElements() {
+// weekday = weekdayNames[index]
+
+
+
+
+// }
+
+
 function updateCalender () {
     let todayDayFormatted1 =  todayDay.toString().padStart(2, '0');
     let todayMonthFormatted1 = (todayMonth + 1).toString().padStart(2, '0');
 
+    
 
     let title= document.querySelector("title");
     let fullDate1 = document.getElementById("fullDate1")
     let fullDate2 = document.getElementById("fullDate2");
-    // let fullWeekday1 = document.getElementById("fullWeekday1");
+    let fullWeekday1 = document.getElementById("fullWeekday1");
     // let nthWeekday = document.getElementById("nthWeekday");
     // let fullWeekday2 = document.getElementById("fullWeekday2");
     // let fullMonth = document.getElementById("fullMonth");
@@ -67,11 +79,10 @@ function updateCalender () {
 
 
 
-
-    title.textContent = `${todayDayFormatted1}.${todayMonthFormatted1}.${todayYear}`;
+    title.textContent = "Kalender" + " " + `${todayDayFormatted1}.${todayMonthFormatted1}.${todayYear}`;
     fullDate1.textContent = `${todayDayFormatted1}.${todayMonthFormatted1}.${todayYear}`;
     fullDate2.textContent = `${todayDayFormatted1}.${todayMonthFormatted1}.${todayYear}`;
-    // fullWeekday1.textContent = `${getWeekdayGerman(weekdaysIndex)}`;
+    fullWeekday1.textContent = weekday;
     // nthWeekday.textContent = 
     // fullWeekday2.textContent = 
     // fullMonth.textContent = 
@@ -97,44 +108,22 @@ function selectDate(date) {
 
 
 document.getElementById("prev").addEventListener("click", () => {
-    todayMonth--;
-    if (todayMonth < 0) {
-        todayMonth = 11;
-        todayYear--;
+    displayMonth--;
+    if (displayMonth < 0) {
+        displayMonth = 11;
+        displayYear--;
     }
-    renderCalenderStart2(todayYear, todayMonth);
+    renderCalenderStart2(displayYear, displayMonth);
 });
 
 document.getElementById("next").addEventListener("click", () => {
-    todayMonth++;
-    if (todayMonth > 11) {
-        todayMonth = 0;
-        todayYear++;
+    displayMonth++;
+    if (displayMonth > 11) {
+        displayMonth = 0;
+        displayYear++;
     }
-    renderCalenderStart2(todayYear, todayMonth);
+    renderCalenderStart2(displayYear, displayMonth);
 });
-
-
-
-
-// document.getElementById("prev").addEventListener("click", () => {
-//     displayMonth--;
-//     if (displayMonth < 0) {
-//         displayMonth = 11;
-//         displayYear--;
-//     }
-//     renderCalenderStart2(displayYear, displayMonth);
-// });
-
-// document.getElementById("next").addEventListener("click", () => {
-//     displayMonth++;
-//     if (displayMonth > 11) {
-//         displayMonth = 0;
-//         displayYear++;
-//     }
-//     renderCalenderStart2(displayYear, displayMonth);
-// });
-
 
 function getWeekdayGerman(index) {
     const weekdayNames = ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'];
@@ -234,7 +223,7 @@ function getFronleichnam(year) {
 }
 
 function renderCalenderStart2(renderYear, renderMonth) {     // funktion to render days
-    document.getElementById("kalenderHeader").textContent = `${getMonthGerman(todayMonth)} ${todayYear}`;
+    document.getElementById("kalenderHeader").textContent = `${getMonthGerman(renderMonth)} ${renderYear}`;
     let tableBody = document.getElementById("tableBody");
     tableBody.innerHTML = "";
 
