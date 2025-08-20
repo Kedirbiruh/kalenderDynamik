@@ -43,8 +43,6 @@ if (feiertagsName) {
 
 
 // HELPER FUNCTIONS for dynamic//
-
-
 function selectDate(date) {
     selectedDay = date.getDate();
     selectedMonth = date.getMonth();
@@ -69,6 +67,8 @@ function updateCalender() {
     let daysInMonth = document.getElementById("daysInMonth");
     let holiday = document.getElementById("holiday");
     let fullDate3 = document.getElementById("fullDate3");
+    // let eventsList = document.getElementById("eventsList");
+
     title.textContent = "Kalender" + " " + `${todayDayFormatted1}.${todayMonthFormatted1}.${selectedYear}`;
     fullDate1.textContent = `${todayDayFormatted1}.${todayMonthFormatted1}.${selectedYear}`;
     fullDate2.textContent = `${todayDayFormatted1}.${todayMonthFormatted1}.${selectedYear}`;
@@ -82,6 +82,8 @@ function updateCalender() {
     holiday.textContent = `${feiertagsName == false ? "Heute ist kein gesetzlicher Feiertag in Hessen" : 
                             `Heute ist ein gesetzlicher Feiertag in Hessen: ${feiertagsName}.`}`;
     fullDate3.textContent = `${todayDayFormatted1}.${todayMonthFormatted1}.${selectedYear}`
+    // eventsList.textContent =     
+
 }
 
 document.getElementById("prev").addEventListener("click", () => {
@@ -131,6 +133,7 @@ function getFeiertag(datum) {
     const easterSunday = getEasterSunday(datum.getFullYear());
     const ostermontag = getOstermontag(datum.getFullYear());
     const fronleichnam = getFronleichnam(datum.getFullYear());
+
     if (areDatesEqual(datum, himmelFahrt)) {
         return "Himmelfahrt";
     } else if (areDatesEqual(datum, pfingsten)) {
@@ -201,6 +204,7 @@ function renderCalenderStart2(renderYear, renderMonth) {     // funktion to rend
     document.getElementById("kalenderHeader").textContent = `${getMonthGerman(renderMonth)} ${renderYear}`;
     let tableBody = document.getElementById("tableBody");
     tableBody.innerHTML = "";
+
     let firstDay = new Date(renderYear, renderMonth, 1); // um herauszufinden, auf welchen Wochentag der 1. Tag des Monats fällt
     let daysOfLastMonth = (firstDay.getDay() + 6) % 7;          // um Sonntag=6, Montag=0 zu bekommen
     let startDay = new Date(renderYear, renderMonth, 1 - daysOfLastMonth);
@@ -232,6 +236,7 @@ function renderCalenderStart2(renderYear, renderMonth) {     // funktion to rend
                 cell.classList.add("sonntag")
             }
             cell.addEventListener('click', function () { selectDate(day); });
+
         }
         if (isToday2(day)) {
             cell.classList.add("today");
@@ -242,6 +247,7 @@ function renderCalenderStart2(renderYear, renderMonth) {     // funktion to rend
         if (getFeiertag(day)) {
             cell.classList.add("feiertag");
         }
+
         // Table Row abschließen
         row.appendChild(cell);
         if (weekday === 0) {
@@ -263,14 +269,12 @@ function getNthWeekdayInMonth(date) {
     const weekdaysIndex = date.getDay();
     const dayOfMonth = date.getDate();
     let count = 0;
-
     for (let d = 1; d <= dayOfMonth; d++) {
         let current = new Date(date.getFullYear(), date.getMonth(), d);
         if (current.getDay() === weekdaysIndex) {
             count++;
         }
     }
-
     let ordinal;
     if (count === 1) {
         ordinal = 'erste';
@@ -293,6 +297,7 @@ function getNthWeekdayInMonth2(dayOfMonth) {
     if (dayOfMonth < 29) return 'vierter';
     return 'fünfter';
 }
+
 
 function getNthWeekdayInMonth4(date) {
     const wievielterArray = ['erster', 'zweiter', 'dritter', 'vierter', 'fünfter'];
