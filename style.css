@@ -43,6 +43,7 @@ body {
   font-weight: bold;
   text-align: center;
   color: #d3d6de; 
+  
 }
 
 .kalenderNav button {
@@ -52,10 +53,19 @@ body {
   color:  #2f4f57;
   width: 30px;
   height: 30px;
-  padding: 0px;
   align-items: center;
   justify-content:center;
+}
 
+#prev {
+display:grid;
+margin-left: 10px;
+
+}
+
+#next {
+display:grid;
+margin-left: 950px;
 }
 
 .kalenderNav button:hover {
@@ -120,12 +130,18 @@ SO {
 }
 
 .today {
-  border: 1px solid rgb(75, 83, 83);
+  border: 2.5px solid#2f4f57;
 }
 
 .feiertag {
-  background-color: #9aab87;
+  background-color: #2d8d2a;
+  border-radius: 50px;
 }
+
+.feiertagOffsets {
+background-color: #2e6472;
+border-radius: 50px
+} 
 
 #text_box {
   grid-area: text_box;

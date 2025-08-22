@@ -31,7 +31,7 @@ document.getElementById("currentYear").textContent = todayYear;
 
 let nthWeekday = getNthWeekdayInMonth(today);
 document.getElementById('nthWeekday').textContent = nthWeekday;
-document.addEventListener('DOMContentLoaded', fetchData)
+document.addEventListener('DOMContentLoaded', fetchData);
 
 let feiertagsName = getFeiertag(today);
 renderCalenderStart2(todayYear, todayMonth);
@@ -243,14 +243,28 @@ function renderCalenderStart2(renderYear, renderMonth) {     // funktion to rend
             }
             cell.addEventListener('click', function () { selectDate(day); });
         }
+
+        // clicked = Date (day.getFullYear ,day.getMonth);
+        // cell.addEve.... ('click' , function () { selectDate(clicked); })
+        // if(clicked.getMonth != renderMonth || clicked.getYear != renderYear){
+        // displayMonth = clicked.getMonth;
+        // displayYear = clicked.getYear;
+        // }
+
+
+
         if (isToday2(day)) {
             cell.classList.add("today");
         }
         if (isAndreBirthday(day.getMonth(), day.getDate())) {
             cell.classList.add("Andre’sBirthday");
         }
-        if (getFeiertag(day)) {
+        if (getFeiertag(day) && day.getMonth() == renderMonth) {
             cell.classList.add("feiertag");
+        }
+
+        if (getFeiertag(day) && day.getMonth() !== renderMonth) {
+            cell.classList.add("feiertagOffsets");
         }
         // Table Row abschließen
         row.appendChild(cell);
