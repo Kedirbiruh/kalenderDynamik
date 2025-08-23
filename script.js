@@ -244,13 +244,27 @@ function renderCalenderStart2(renderYear, renderMonth) {     // funktion to rend
             cell.addEventListener('click', function () { selectDate(day); });
         }
 
-        // clicked = Date (day.getFullYear ,day.getMonth);
-        // cell.addEve.... ('click' , function () { selectDate(clicked); })
-        // if(clicked.getMonth != renderMonth || clicked.getYear != renderYear){
-        // displayMonth = clicked.getMonth;
-        // displayYear = clicked.getYear;
-        // }
 
+        let clicked = new Date(day.getFullYear(), day.getMonth(), day.getDate());
+        cell.addEventListener('click', function () { selectDate(clicked); 
+        if (clicked.getMonth() != renderMonth || clicked.geFulltYear() != renderYear) {
+        displayMonth = clicked.getMonth();
+        displayYear = clicked.getFullYear();
+        renderCalenderStart2(displayYear, displayMonth);
+        }
+        });
+
+
+        // let clicked = new Date(day.getFullYear(), day.getMonth(), day.getDate());
+        // cell.addEventListener('click', function () {
+        // selectDate(clicked);
+
+        // if (clicked.getMonth() !== renderMonth || clicked.getFullYear() !== renderYear) {
+        // displayMonth = clicked.getMonth();
+        // displayYear = clicked.getFullYear();
+        // renderCalenderStart2(displayYear, displayMonth);
+        // }
+        // });
 
 
         if (isToday2(day)) {

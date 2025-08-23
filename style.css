@@ -56,7 +56,7 @@ body {
   align-items: center;
   justify-content:center;
 }
-
+/* 
 #prev {
 display:grid;
 margin-left: 10px;
@@ -66,7 +66,7 @@ margin-left: 10px;
 #next {
 display:grid;
 margin-left: 950px;
-}
+} */
 
 .kalenderNav button:hover {
   background-color:#5d7f8a;;
@@ -155,8 +155,12 @@ border-radius: 50px
   color: #f3f4f6;
   box-shadow: 0 6px 20px rgba(0,0,0,0.15);
   color: black;
-  border-radius: 12px;   
+  border-radius: 12px;
+  margin-top: 4rem;
+    
 }
+
+
 
 #history {
   background-color: #2f4f57;  
@@ -168,6 +172,7 @@ border-radius: 50px
   margin-top: 8rem;
   width: 50%;
   color: #d3d6de; 
+  gap: 8rem;
 }
 
 
@@ -176,7 +181,7 @@ border-radius: 50px
   text-align: left;
   font-size: 25px;
   margin-left: 100px;
-  margin-bottom: 8rem;
+  margin-top: -2rem;
   width: 50%;
   background-color: #4a5a6a; 
   color: #f3f4f6;  
