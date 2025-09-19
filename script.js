@@ -31,10 +31,10 @@ document.getElementById("currentYear").textContent = todayYear;
 
 let nthWeekday = getNthWeekdayInMonth(today);
 document.getElementById('nthWeekday').textContent = nthWeekday;
-document.addEventListener('DOMContentLoaded', fetchData);
+document.addEventListener('DOMContentLoaded', () => fetchData(todayMonth, todayDay));
 
 let feiertagsName = getFeiertag(today);
-renderCalenderStart2(todayYear, todayMonth);
+renderCalendarStart2(todayYear, todayMonth);
 if (feiertagsName) {
     document.getElementById("holiday").textContent = `Heute ist ein gesetzlicher Feiertag in Hessen: ${feiertagsName}.`;
 } else {
@@ -49,10 +49,10 @@ function selectDate(date) {
     selectedYear = date.getFullYear();
     weekday = date.getDay();
     feiertagsName = getFeiertag(date);
-    updateCalender();
+    updateCalendar();
 }
 
-function updateCalender() {
+function updateCalendar() {
     let todayDayFormatted1 = selectedDay.toString().padStart(2, '0');
     let todayMonthFormatted1 = (selectedMonth + 1).toString().padStart(2, '0');
     let title = document.querySelector("title");
@@ -79,10 +79,10 @@ function updateCalender() {
     currentYear.textContent = `${selectedYear}`;
     monthName.textContent = `${getMonthGerman(selectedMonth)}`;
     daysInMonth.textContent = getDaysInMonth(selectedYear, selectedMonth);
-    holiday.textContent = `${feiertagsName == false ? "Heute ist kein gesetzlicher Feiertag in Hessen" : 
+    holiday.textContent = `${feiertagsName == false ? "Heute ist kein gesetzlicher Feiertag in Hessen." : 
                             `Heute ist ein gesetzlicher Feiertag in Hessen: ${feiertagsName}.`}`;
     fullDate3.textContent = `${todayDayFormatted1}.${todayMonthFormatted1}.${selectedYear}`;
-    eventsList.textContent = fetchData(selectedMonth, selectedDay);     
+    fetchData(selectedMonth, selectedDay);
 }
 
 function updateAllForSelectedDay(year, month, day) {
@@ -97,7 +97,7 @@ document.getElementById("prev").addEventListener("click", () => {
         displayMonth = 11;
         displayYear--;
     }
-    renderCalenderStart2(displayYear, displayMonth);
+    renderCalendarStart2(displayYear, displayMonth);
     updateAllForSelectedDay(displayYear, displayMonth, 1);
 });
 
@@ -107,7 +107,7 @@ document.getElementById("next").addEventListener("click", () => {
         displayMonth = 0;
         displayYear++;
     }
-    renderCalenderStart2(displayYear, displayMonth);
+    renderCalendarStart2(displayYear, displayMonth);
     updateAllForSelectedDay(displayYear, displayMonth, 1);
 });
 
@@ -206,7 +206,7 @@ function getFronleichnam(year) {
     return new Date(easterSunday.getFullYear(), easterSunday.getMonth(), easterSunday.getDate() + 60);
 }
 
-function renderCalenderStart2(renderYear, renderMonth) {     // funktion to render days
+function renderCalendarStart2(renderYear, renderMonth) {     // funktion to render days
     document.getElementById("kalenderHeader").textContent = `${getMonthGerman(renderMonth)} ${renderYear}`;
     let tableBody = document.getElementById("tableBody");
     tableBody.innerHTML = "";
@@ -243,14 +243,12 @@ function renderCalenderStart2(renderYear, renderMonth) {     // funktion to rend
             }
             cell.addEventListener('click', function () { selectDate(day); });
         }
-
-
         let clicked = new Date(day.getFullYear(), day.getMonth(), day.getDate());
         cell.addEventListener('click', function () { selectDate(clicked); 
         if (clicked.getMonth() != renderMonth || clicked.geFulltYear() != renderYear) {
         displayMonth = clicked.getMonth();
         displayYear = clicked.getFullYear();
-        renderCalenderStart2(displayYear, displayMonth);
+        renderCalendarStart2(displayYear, displayMonth);
         }
         });
 
@@ -262,7 +260,7 @@ function renderCalenderStart2(renderYear, renderMonth) {     // funktion to rend
         // if (clicked.getMonth() !== renderMonth || clicked.getFullYear() !== renderYear) {
         // displayMonth = clicked.getMonth();
         // displayYear = clicked.getFullYear();
-        // renderCalenderStart2(displayYear, displayMonth);
+        // renderCalendarStart2(displayYear, displayMonth);
         // }
         // });
 
@@ -361,10 +359,10 @@ function getDaysInMonth(year, month) {
     return new Date(year, month + 1, 0).getDate();
 }
 
-async function fetchData() {
+async function fetchData(month = todayMonth, day = todayDay) {
     let eventsArray = [];
     try {
-        let url = `https://history.muffinlabs.com/date/${todayMonth}/${todayDay}`;
+        let url = `https://history.muffinlabs.com/date/${month + 1}/${day}`;
         let response = await fetch(url);
         let json = await response.json();
         let events = json.data.Events;
